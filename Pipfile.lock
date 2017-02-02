@@ -1,0 +1,45 @@
+{
+    "default": {
+        "pytz": {
+            "version": "==2016.10",
+            "hash": "sha256:a1ea35e87a63c7825846d5b5c81d23d668e8a102d3b1b465ce95afe1b3a2e065"
+        },
+        "slacker": {
+            "version": "==0.9.40",
+            "hash": "sha256:1685677243b402f3c6dbd729743da80dbdb9e035bf0be230d843556d64aa1678"
+        },
+        "python-dateutil": {
+            "version": "==2.6.0",
+            "hash": "sha256:537bf2a8f8ce6f6862ad705cd68f9e405c0b5db014aa40fa29eab4335d4b1716"
+        },
+        "requests": {
+            "version": "==2.13.0",
+            "hash": "sha256:1a720e8862a41aa22e339373b526f508ef0c8988baf48b84d3fc891a8e237efb"
+        },
+        "six": {
+            "version": "==1.10.0",
+            "hash": "sha256:0ff78c403d9bccf5a425a6d31a12aa6b47f1c21ca4dc2573a7e2f32a97335eb1"
+        },
+        "click": {
+            "version": "==6.7",
+            "hash": "sha256:29f99fc6125fbc931b758dc053b3114e55c77a6e4c6c3a2674a2dc986016381d"
+        },
+        "influxdb": {
+            "version": "==4.0.0",
+            "hash": "sha256:9983876009e08cf4517b4db7b89cee1d6cbf83efdfc021b9ef1c3b13304b12b1"
+        }
+    },
+    "develop": {},
+    "_meta": {
+        "sources": [
+            {
+                "url": "https://pypi.python.org/simple",
+                "verify_ssl": true
+            }
+        ],
+        "requires": {},
+        "hash": {
+            "sha256": "701780d062890af87ed20fec9ec6ddf9be63175eb48e955c7f566c2c8ae5ca78"
+        }
+    }
+}
