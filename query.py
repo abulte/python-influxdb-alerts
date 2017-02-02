@@ -1,5 +1,6 @@
 """Query influxdb"""
 
+import click
 from influxdb import InfluxDBClient
 
 from config import CONFIG
@@ -33,4 +34,7 @@ class Query(object):
             )
         result = self.client.query(query)
 
-        return next(result[indicator])['mean']
+        try:
+            return next(result[indicator])['mean']
+        except StopIteration:
+            click.secho('No value found for indicator %s at host %s' % (indicator, host), fg='red')

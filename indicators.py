@@ -31,12 +31,14 @@ class BaseIndicator(object):
 
     def get_value(self, host):
         """Get the value from influx for this indicator"""
-        return self.client.query_last_mean(
+        value = self.client.query_last_mean(
             self.name,
             host,
             timeframe=self.timeframe,
             filters=self.filters
-        ) / self.divider
+        )
+        if value:
+            return value / self.divider
 
     def is_alert(self, host, value=None):
         """Is this indicator in alert state?"""

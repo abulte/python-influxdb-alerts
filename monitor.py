@@ -32,11 +32,12 @@ def cli():
 def run(verbose, config):
     """Parse indicator values and alert if needed"""
     hosts, indicators, alerters = setup(config)
-    for indicator in indicators:
-        for host in hosts:
+    for host in hosts:
+        for indicator in indicators:
+            alert = False
             value = indicator.get_value(host)
-            alert = indicator.is_alert(host, value=value)
-            if alert:
+            if value and indicator.is_alert(host, value=value):
+                alert = True
                 for alerter in alerters:
                     alerter.send(indicator, host, value)
 
