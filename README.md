@@ -22,6 +22,8 @@ cp settings-example.cfg settings.cfg
 
 Then edit this file to configure the script.
 
+By default, the script will send email and slack alerts for load (> 1.5 on long term for 10min on average), RAM (< 500 Mb free for 10min on average) and disk space measurements (< 2 Gb free for 10min on average).
+
 ## Usage
 
 This tool is meant to be run via cron quite frequently (eg 10 min).
