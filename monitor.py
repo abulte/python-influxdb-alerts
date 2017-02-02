@@ -4,18 +4,23 @@ from importlib import import_module
 
 import click
 
-from config import CONFIG
+from config import CONFIG, read_config
 
-HOSTS = str(CONFIG.get('general', 'HOSTS')).split(',')
 
-INDICATOR_MODULE = import_module('indicators')
-INDICATORS_CLASSES = str(CONFIG.get('general', 'INDICATORS')).split(',')
-INDICATORS = [getattr(INDICATOR_MODULE, c_name)() for c_name in INDICATORS_CLASSES]
+def setup(config):
+    read_config(config)
 
-ALERTER_MODULE = import_module('alerters')
-ALERTERS_CLASSES = str(CONFIG.get('general', 'ALERTERS')).split(',')
-ALERTERS = [getattr(ALERTER_MODULE, c_name)() for c_name in ALERTERS_CLASSES]
+    hosts = str(CONFIG.get('general', 'HOSTS')).split(',')
 
+    indicator_module = import_module('indicators')
+    indicator_classes = str(CONFIG.get('general', 'indicators')).split(',')
+    indicators = [getattr(indicator_module, c_name)() for c_name in indicator_classes]
+
+    alerter_module = import_module('alerters')
+    alerter_classes = str(CONFIG.get('general', 'ALERTERS')).split(',')
+    alerters = [getattr(alerter_module, c_name)() for c_name in alerter_classes]
+
+    return hosts, indicators, alerters
 
 @click.group()
 def cli():
@@ -23,14 +28,16 @@ def cli():
 
 @cli.command()
 @click.option('--verbose', '-v', is_flag=True, help='Output indicator value to console.')
-def run(verbose):
+@click.option('--config', '-c', default='settings.cfg', help='Path to config file.')
+def run(verbose, config):
     """Parse indicator values and alert if needed"""
-    for indicator in INDICATORS:
-        for host in HOSTS:
+    hosts, indicators, alerters = setup(config)
+    for indicator in indicators:
+        for host in hosts:
             value = indicator.get_value(host)
             alert = indicator.is_alert(host, value=value)
             if alert:
-                for alerter in ALERTERS:
+                for alerter in alerters:
                     alerter.send(indicator, host, value)
 
             if verbose:
@@ -40,16 +47,20 @@ def run(verbose):
                 click.echo(prefix.ljust(40) + value_str.ljust(30) + alert_str.ljust(30))
 
 @cli.command()
-def test_email():
+@click.option('--config', '-c', default='settings.cfg', help='Path to config file.')
+def test_email(config):
     """Test sending email"""
+    setup(config)
     from alerters import MailAlerter
     from indicators import FreeRAMIndicator
     mail = MailAlerter()
     mail.send(FreeRAMIndicator(), 'test.host', 0)
 
 @cli.command()
-def test_slack():
+@click.option('--config', '-c', default='settings.cfg', help='Path to config file.')
+def test_slack(config):
     """Test sending slack message"""
+    setup(config)
     from alerters import SlackAlerter
     from indicators import FreeRAMIndicator
     slack = SlackAlerter()

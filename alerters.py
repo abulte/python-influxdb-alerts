@@ -31,7 +31,7 @@ Value: `%(value).2f%(unit)s`, threshold: `%(threshold)s%(unit)s`.""" % {
         }
 
         try:
-            self.slack.chat.post_message('#%s' % self.channel, message)
+            self.slack.chat.post_message('#%s' % self.channel, message, as_user=True)
         except Exception as e:
             click.secho('Slack send error: %s' % e, fg='red')
 

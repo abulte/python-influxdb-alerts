@@ -3,4 +3,6 @@
 from configparser import SafeConfigParser
 
 CONFIG = SafeConfigParser()
-CONFIG.read('settings.cfg')
+
+def read_config(config_file):
+    CONFIG.read(config_file)

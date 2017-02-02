@@ -32,6 +32,12 @@ python monitor.py run
 
 ## Commands
 
+Specify a config file path.
+
+```
+python monitor.py run -c other-settings.cfg
+```
+
 Run with measurement output.
 
 ```
