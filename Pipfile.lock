@@ -27,6 +27,10 @@
         "influxdb": {
             "version": "==4.0.0",
             "hash": "sha256:9983876009e08cf4517b4db7b89cee1d6cbf83efdfc021b9ef1c3b13304b12b1"
+        },
+        "configparser": {
+            "version": "==3.5.0",
+            "hash": "sha256:5308b47021bc2340965c371f0f058cc6971a04502638d4244225c49d80db273a"
         }
     },
     "develop": {},
@@ -39,7 +43,7 @@
         ],
         "requires": {},
         "hash": {
-            "sha256": "701780d062890af87ed20fec9ec6ddf9be63175eb48e955c7f566c2c8ae5ca78"
+            "sha256": "6be2199af9882efd7228529d11ba1b9d8346c4afea742a589b2c69ecb74b8e88"
         }
     }
 }
